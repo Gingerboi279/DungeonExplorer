@@ -4,9 +4,15 @@ namespace DungeonExplorer
 {
     public class Player
     {
-        public string Name { get; private set; }
+        public string Name { get; set; }
+        public string Inventory { get; set; }
+
+        public Player(string name)
+        {
+            Name = name;
+            Inventory = string.Empty;
+        }
         public int Health { get; private set; }
-        private List<string> inventory = new List<string>();
 
         public Player(string name, int health) 
         {
@@ -15,11 +21,26 @@ namespace DungeonExplorer
         }
         public void PickUpItem(string item)
         {
-
+             if (string.IsNullOrEmpty(Inventory))
+            {
+                Inventory = item;
+                Console.WriteLine($"You have picked up the {item}.");
+            }
+            else
+            {
+                Console.WriteLine("You already have an item in your inventory.");
+            }
         }
-        public string InventoryContents()
+        public void InventoryContents()
         {
-            return string.Join(", ", inventory);
+            if (string.IsNullOrEmpty(Inventory))
+            {
+                Console.WriteLine("Your inventory is empty.");
+            }
+            else
+            {
+                Console.WriteLine($"Your inventory contains: {Inventory}");
+            }
         }
     }
 }
